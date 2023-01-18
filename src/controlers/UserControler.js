@@ -2,6 +2,13 @@
 const User = require('../models/Users')
 
 module.exports = {
+
+    async index(req, res){ // buscar por todos os usuarios
+        const users = await User.findAll()
+
+        return res.json(users)
+    },
+    
     async store(req, res){
         const { name, email, age } = req.body;
 
@@ -10,3 +17,6 @@ module.exports = {
         return res.json(user)
     }
 }
+
+
+

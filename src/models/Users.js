@@ -11,6 +11,10 @@ class User extends Model {
         }
         )
     }
+       // CRIANDO RELACIONAMENTOS 
+       static associate(models){
+        this.hasMany(models.Address, { foreignKey: 'user_id', as: 'addresses' })
+    }
 }
 
 module.exports = User
