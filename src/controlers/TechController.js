@@ -31,9 +31,22 @@ module.exports = {
     // GET RELACIONAL 
 
     async index(req, res) {
+        const { user_id } = req.params
+        const { name } = req.body
 
+        const user = await User.findByPk(user_id, {
+            include: { association: 'techs' }
+        })
+
+        if (!user) {
+            return res.status(400).json({ error: 'Usuário não encontrado' })
+        }
+
+        return res.json(user)
 
     },
+
+
     async delete(req, res) { // DELETA RELAÇÃO DA TECH COM O USER
         const { user_id } = req.params;
         const { name } = req.body
