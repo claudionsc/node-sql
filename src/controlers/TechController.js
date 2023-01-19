@@ -32,10 +32,10 @@ module.exports = {
 
     async index(req, res) {
         const { user_id } = req.params
-        const { name } = req.body
+
 
         const user = await User.findByPk(user_id, {
-            include: { association: 'techs' }
+            include: { association: 'techs', through: { attributes: [] } }
         })
 
         if (!user) {
@@ -43,6 +43,19 @@ module.exports = {
         }
 
         return res.json(user)
+
+    },
+    async allTechs(req, res) {
+
+       const users = await User.findAll( {
+            include: { association: 'techs' }
+        })
+
+        if (!users) {
+            return res.status(400).json({ error: 'Usuário não encontrado' })
+        }
+
+        return res.json(users)
 
     },
 
